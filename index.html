@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+<script>
+    if (!sessionStorage.getItem("loadedOnce")) {
+      sessionStorage.setItem("loadedOnce", "yes");
+      window.location.href = "loading.html";
+    }
+  </script>
 </head>
 <body>
 
