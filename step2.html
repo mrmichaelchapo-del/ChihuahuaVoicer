@@ -4,3 +4,40 @@ title: Step 2
 permalink: /step2
 ---
 <!DOCTYPE html>
+<script>
+let audioContext;
+let analyser;
+let dataArray;
+
+async function startBarkDetection() {
+  audioContext = new AudioContext();
+
+  // Ask for microphone
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  const source = audioContext.createMediaStreamSource(stream);
+
+  // Create analyser node
+  analyser = audioContext.createAnalyser();
+  analyser.fftSize = 256;
+
+  dataArray = new Uint8Array(analyser.frequencyBinCount);
+  source.connect(analyser);
+
+  detectBark();
+}
+
+function detectBark() {
+  analyser.getByteFrequencyData(dataArray);
+
+  // Average volume
+  let volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
+
+  // Bark threshold (tweakable)
+  if (volume > 85) {
+    document.getElementById("stepBox").textContent =
+      "BARK DETECTED 🔊🐕";
+  }
+
+  requestAnimationFrame(detectBark);
+}
+</script>
