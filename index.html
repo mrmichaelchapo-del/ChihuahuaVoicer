@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+</head>
+<video id="cam" autoplay playsinline></video>
+<button id="start">Enable Camera</button>
+
+<script>
+  const video = document.getElementById("cam");
+  const btn = document.getElementById("start");
+
+  btn.onclick = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true
+      });
+      video.srcObject = stream;
+    } catch (err) {
+      console.error("Camera error:", err);
+    }
+  };
+</script>
+<script>
+if (err.name === "NotFoundError") {
+      console.log("No camera detected.");
+    }
+alert("We need the camera access to translate your barks to English.")
+</script>
+<body>
+<p>Put your dog up to the webcam</p>
+</body>
+</html>
