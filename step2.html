@@ -3,7 +3,22 @@ layout: default
 title: Step 2
 permalink: /step2
 ---
+
 <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Step 2</title>
+</head>
+
+<body>
+
+<h1>STEP 2: Listening for barks… 🎤🐕</h1>
+
+<div id="stepBox" style="font-size:2rem;font-weight:bold;margin:20px;">
+  Waiting for bark… 👂🐶
+</div>
+
 <script>
 let audioContext;
 let analyser;
@@ -40,6 +55,10 @@ function detectBark() {
 
   requestAnimationFrame(detectBark);
 }
+
+// Start detection automatically
+startBarkDetection();
 </script>
+
 </body>
 </html>
