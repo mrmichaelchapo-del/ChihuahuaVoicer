@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8">
 </head>
+<body>
+
 <video id="cam" autoplay playsinline></video>
 <button id="start">Enable Camera</button>
+
+<p>Put your dog up to the webcam</p>
 
 <script>
   const video = document.getElementById("cam");
@@ -18,16 +22,26 @@
       video.srcObject = stream;
     } catch (err) {
       console.error("Camera error:", err);
+
+      // Error handling moved INSIDE the catch where `err` exists
+      if (err.name === "NotAllowedError") {
+        alert("You blocked camera access 😭");
+      }
+      if (err.name === "NotFoundError") {
+        alert("No camera detected, can't translate 💀");
+      }
+      if (err.name === "NotReadableError") {
+        alert("Camera is already in use or another error 🔥");
+      }
+      if (err.name === "SecurityError") {
+        alert("HTTPS required ⚠️");
+      }
     }
   };
+
+  // This alert must NOT reference err
+  alert("We need the camera access to translate your barks to English.");
 </script>
-<script>
-if (err.name === "NotFoundError") {
-      console.log("No camera detected.");
-    }
-alert("We need the camera access to translate your barks to English.")
-</script>
-<body>
-<p>Put your dog up to the webcam</p>
+
 </body>
 </html>
