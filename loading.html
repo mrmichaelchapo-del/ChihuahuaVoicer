@@ -3,14 +3,22 @@ layout: default
 title: Loading
 permalink: /load
 ---
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loading…</title>
+</head>
+
 <body>
   <h1>Loading…</h1>
 
   <script>
     setTimeout(() => {
-      window.location.href = "index.html";
+      window.location.href = "/index.html"; 
+      // If your homepage is at the root, this is correct.
+      // If your homepage is inside a folder, change the path.
     }, 2000);
   </script>
 </body>
