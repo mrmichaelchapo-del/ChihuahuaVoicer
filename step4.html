@@ -1,0 +1,93 @@
+---
+layout: default
+title: Step 4
+permalink: /step4
+---
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Step 4</title>
+</head>
+
+<body>
+
+<h1>STEP 4: Identifying dog type… 🐶🔍</h1>
+
+<div id="resultBox" style="font-size:2rem;font-weight:bold;margin:20px;">
+  Listening and analyzing… 🎧🐕
+</div>
+
+<script>
+let audioContext;
+let analyser;
+let dataArray;
+
+async function startDogTypeDetection() {
+  audioContext = new AudioContext();
+
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  const source = audioContext.createMediaStreamSource(stream);
+
+  analyser = audioContext.createAnalyser();
+  analyser.fftSize = 256;
+
+  dataArray = new Uint8Array(analyser.frequencyBinCount);
+  source.connect(analyser);
+
+  detectDogType();
+}
+
+function detectDogType() {
+  analyser.getByteFrequencyData(dataArray);
+
+  let volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
+
+  let dogType = "Unknown";
+
+  // Simple classification based on bark volume
+  if (volume < 40) {
+    dogType = "Miniature Teacup Chihuahua 🍼🐕";
+  } else if (volume < 65) {
+    dogType = "Teacup Dog ☕🐶";
+  } else if (volume < 85) {
+    dogType = "Regular Chihuahua 🐕🔥";
+  } else if (volume < 110) {
+    dogType = "Dog 🐶💥";
+  } else {
+    dogType = "Old Dog 🧓🐕 (deep bark)";
+  }
+
+  document.getElementById("resultBox").textContent =
+    "Detected: " + dogType;
+
+  requestAnimationFrame(detectDogType);
+}
+
+startDogTypeDetection();
+</script>
+
+<a href="/step5" class="btn">Next step 🚀</a>
+
+<style>
+  .btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background: #ffcc00;
+    color: black;
+    font-weight: bold;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: 0.2s;
+  }
+
+  .btn:hover {
+    background: #ffaa00;
+    transform: scale(1.05);
+  }
+</style>
+
+</body>
+</html>
