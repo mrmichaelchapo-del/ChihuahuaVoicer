@@ -1,0 +1,128 @@
+---
+layout: default
+title: Step 5
+permalink: /step5
+---
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Step 5</title>
+</head>
+
+<body>
+
+<h1>STEP 5: Detecting dog emotion… 💬🐶</h1>
+
+<div id="emotionBox" style="font-size:2rem;font-weight:bold;margin:20px;">
+  Listening for emotional bark signals… 🎧🐕
+</div>
+
+<h2>Or choose emotion manually:</h2>
+
+<form id="emotionForm" style="font-size:1.3rem;">
+  <label>
+    <input type="radio" name="emotion" value="Happy 🐶😊"> Happy 🐶😊
+  </label><br>
+
+  <label>
+    <input type="radio" name="emotion" value="Angry 🐶🔥"> Angry 🐶🔥
+  </label><br>
+
+  <label>
+    <input type="radio" name="emotion" value="Scared 🐶😱"> Scared 🐶😱
+  </label><br>
+
+  <label>
+    <input type="radio" name="emotion" value="Excited 🐶⚡"> Excited 🐶⚡
+  </label><br>
+
+  <label>
+    <input type="radio" name="emotion" value="Confused 🐶❓"> Confused 🐶❓
+  </label><br><br>
+
+  <button type="button" onclick="manualEmotion()" class="btn">Submit Emotion</button>
+</form>
+
+<script>
+let audioContext;
+let analyser;
+let dataArray;
+
+async function startEmotionDetection() {
+  audioContext = new AudioContext();
+
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  const source = audioContext.createMediaStreamSource(stream);
+
+  analyser = audioContext.createAnalyser();
+  analyser.fftSize = 512;
+
+  dataArray = new Uint8Array(analyser.frequencyBinCount);
+  source.connect(analyser);
+
+  detectEmotion();
+}
+
+function detectEmotion() {
+  analyser.getByteFrequencyData(dataArray);
+
+  let volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
+  let highFreq = dataArray.slice(100, 150).reduce((a, b) => a + b) / 50;
+
+  let emotion = "Neutral 🐶😐";
+
+  // Emotion logic
+  if (volume > 100 && highFreq > 120) {
+    emotion = "Angry 🐶🔥";
+  } else if (volume < 40 && highFreq < 50) {
+    emotion = "Scared 🐶😱";
+  } else if (volume > 80 && highFreq < 90) {
+    emotion = "Excited 🐶⚡";
+  } else if (volume < 60 && highFreq > 100) {
+    emotion = "Confused 🐶❓";
+  } else if (volume > 50 && highFreq > 60) {
+    emotion = "Happy 🐶😊";
+  }
+
+  document.getElementById("emotionBox").textContent =
+    "Detected Emotion: " + emotion;
+
+  requestAnimationFrame(detectEmotion);
+}
+
+function manualEmotion() {
+  const selected = document.querySelector('input[name="emotion"]:checked');
+  if (selected) {
+    document.getElementById("emotionBox").textContent =
+      "Manual Emotion: " + selected.value;
+  }
+}
+
+startEmotionDetection();
+</script>
+
+<a href="/step6" class="btn">Next step 🚀</a>
+
+<style>
+  .btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background: #ffcc00;
+    color: black;
+    font-weight: bold;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: 0.2s;
+  }
+
+  .btn:hover {
+    background: #ffaa00;
+    transform: scale(1.05);
+  }
+</style>
+
+</body>
+</html>
