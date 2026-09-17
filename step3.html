@@ -5,3 +5,41 @@ permalink: /step3
 ---
 
 <!DOCTYPE html>
+<html>
+  <head>
+    <title>Dog Type Selection</title>
+  </head>
+  <body>
+    <h1>What type is your dog?</h1>
+
+    <form action="/submit-dog-type" method="post">
+      <label for="dog-name">Dog's name:</label><br>
+      <input type="text" id="dog-name" name="dog_name" placeholder="Enter your dog's name"><br><br>
+
+      <label for="dog-type">Dog type:</label><br>
+      <select id="dog-type" name="dog_type">
+        <option value="">-- Select a type --</option>
+        <option value="small">Small dog 🐶</option>
+        <option value="medium">Medium dog 🐕</option>
+        <option value="large">Large dog 🐕‍🦺</option>
+        <option value="mixed">Mixed / I’m not sure 🤔</option>
+      </select><br><br>
+
+      <label>Personality:</label><br>
+      <input type="checkbox" id="playful" name="personality" value="playful">
+      <label for="playful">Playful</label><br>
+
+      <input type="checkbox" id="calm" name="personality" value="calm">
+      <label for="calm">Calm</label><br>
+
+      <input type="checkbox" id="protective" name="personality" value="protective">
+      <label for="protective">Protective</label><br><br>
+
+      <label for="notes">Anything special about your dog?</label><br>
+      <textarea id="notes" name="notes" rows="4" cols="40"
+        placeholder="All the cute details go here..."></textarea><br><br>
+
+      <button type="submit">Submit dog type</button>
+    </form>
+  </body>
+</html>
