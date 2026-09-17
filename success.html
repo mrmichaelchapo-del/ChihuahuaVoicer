@@ -1,0 +1,92 @@
+---
+layout: default
+title: Step 6
+permalink: /step6
+---
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Step 6</title>
+</head>
+
+<body>
+
+<h1>STEP 6: Translation Complete 🎉🐶💬</h1>
+
+<div id="translationBox" style="font-size:2rem;font-weight:bold;margin:20px;">
+  Translating your dog's voice… 🔊🐕➡️🇺🇸
+</div>
+
+<script>
+// These values would normally come from previous steps.
+// For now, we simulate them or pull from URL params.
+
+let dogType = localStorage.getItem("dogType") || "Chihuahua";
+let emotion = localStorage.getItem("emotion") || "Happy";
+
+// Translation logic
+function translateDogVoice(type, emotion) {
+  let message = "";
+
+  if (type.includes("Chihuahua")) {
+    if (emotion.includes("Happy")) message = "Michael!! I am happy!! Pet me now!! 🐶💖";
+    else if (emotion.includes("Angry")) message = "Michael. I am SMALL but ANGRY. Respect me. 🐶🔥";
+    else if (emotion.includes("Scared")) message = "Michael… hold me… something is scary… 🐶😱";
+    else if (emotion.includes("Excited")) message = "MICHAEL LOOK LOOK LOOK LOOK LOOK!!! 🐶⚡";
+    else if (emotion.includes("Confused")) message = "Michael?? What is happening?? 🐶❓";
+    else message = "Michael, I have a feeling… but I cannot explain it. 🐶😐";
+  }
+
+  else if (type.includes("Dog")) {
+    if (emotion.includes("Happy")) message = "Hey Michael, life is good. Tail wagging. 🐶😊";
+    else if (emotion.includes("Angry")) message = "Michael, I must defend the house. Stand back. 🐶🔥";
+    else if (emotion.includes("Scared")) message = "Michael… please stay close… 🐶😱";
+    else if (emotion.includes("Excited")) message = "MICHAEL LET'S GO LET'S GO LET'S GO 🐶⚡";
+    else if (emotion.includes("Confused")) message = "Michael… I do not understand this situation. 🐶❓";
+    else message = "Michael, I bark because I must. 🐶😐";
+  }
+
+  else if (type.includes("Old Dog")) {
+    message = "Michael… I have lived many years… bring me a soft blanket… 🧓🐕";
+  }
+
+  else if (type.includes("Teacup")) {
+    message = "Michael… I am tiny… but mighty… carry me. 🍼🐶";
+  }
+
+  return message;
+}
+
+// Generate translation
+let finalMessage = translateDogVoice(dogType, emotion);
+
+// Display it
+document.getElementById("translationBox").textContent =
+  "Dog says: " + finalMessage;
+</script>
+
+<a href="/step1" class="btn">Restart 🔁</a>
+
+<style>
+  .btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background: #ffcc00;
+    color: black;
+    font-weight: bold;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: 0.2s;
+  }
+
+  .btn:hover {
+    background: #ffaa00;
+    transform: scale(1.05);
+  }
+</style>
+
+</body>
+</html>
